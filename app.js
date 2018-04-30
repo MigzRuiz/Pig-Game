@@ -12,17 +12,52 @@ GAME RULES:
 var score = [0,0];
 var roundScore = 0;
 var activePlayer = 0;
-var dice = Math.floor(Math.random() * 6) + 1;
+
+//getElementById is faster than querySelector
+document.getElementById("score-0").textContent = "0";
+document.getElementById("score-1").textContent = "0";
+
+document.getElementById("current-0").textContent = "0";
+document.getElementById("current-1").textContent = "0"
+
+//To manipulate CSS = use .style.<then the style>
+document.querySelector(".dice").style.display = "none";
+
+//EVENTS AND EVENT HANDLING
+    /*The first way is doing a callback function = calling a function that was passed as an argument on another function.
+        function btn(){
+            //Do something here
+        }
+        document.querySelector(".btn-roll").addEventListener("click", btn);
+    */
+
+    //Second way is writing an annonymous function like this:
+document.querySelector(".btn-roll").addEventListener("click", function() {
+    /*We want to do something each time the btn-roll class is clicked.
+        1.) We want a random number from 1 to 6;
+        2.) We want to display that random number;
+        3.) We want to update the score but ONLY IF the number is NOT 1;
+    */
+    //1
+    var dice = Math.floor(Math.random() * 6) + 1;
+    //2
+    var diceDOM = document.querySelector(".dice");
+    diceDOM.style.display = "unset";
+    diceDOM.src="dice-" + dice + ".png";
+    //3
+    var newNum = document.querySelector(".player-current-score").textContent + dice;
+    console.log(newNum);
+});
+
+
+
+
+//var dice = Math.floor(Math.random() * 6) + 1;
 
 //For us to be able to set a value in the DOM
 //document.querySelector("#current-" + activePlayer).textContent = dice;
-document.querySelector("#current-" + activePlayer).innerHTML = "<em>" + dice + "</em>";
+//document.querySelector("#current-" + activePlayer).innerHTML = "<em>" + dice + "</em>";
 
 //To get value in the DOM
-var x = document.querySelector("#score-0").innerHTML;
-console.log(x);
-
-//To manipulate CSS
-//use .style.<then the style>
-document.querySelector(".dice").style.display = "none";
-
+//var x = document.querySelector("#score-0").innerHTML;
+//console.log(x);
