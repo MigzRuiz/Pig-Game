@@ -51,22 +51,48 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
         document.getElementById("current-" + activePlayer).textContent = roundScore;
     } else {
         //Next player
-        document.getElementById("current-" + activePlayer).textContent = 0;
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
-
-        document.querySelector(".player-0-panel").classList.toggle("active");
-        document.querySelector(".player-1-panel").classList.toggle("active");
-
-        diceDOM.style.display = "none";
+        nextPlayer();
         //document.querySelector(".player-0-panel").classList.add('active');
         //document.querySelector(".player-1-panel").classList.remove('active');
     }
 });
 
+document.querySelector(".btn-hold").addEventListener("click", function(){
+    //Variables
+    var diceDOM = document.querySelector(".dice");
+
+    //Transfer the roundScore to the actual score
+    score[activePlayer] += roundScore;
+
+    //Show that in the DOM
+    document.getElementById("score-" + activePlayer).textContent = score[activePlayer];
+
+    //Calculate if player won
+    if(score[activePlayer] >= 20) {
+        document.getElementById("name-" + activePlayer).textContent = "Winner!";
+        document.querySelector(".dice").style.display = "none";
+        document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
+        document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
+    } else {
+        //Switch to next player
+        nextPlayer();
+    }
 
 
+});
 
+function nextPlayer() {
+    var diceDOM = document.querySelector(".dice");
+    document.getElementById("current-" + activePlayer).textContent = 0;
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+
+    diceDOM.style.display = "none";
+    roundScore = 0;
+
+}
 
 //var dice = Math.floor(Math.random() * 6) + 1;
 
