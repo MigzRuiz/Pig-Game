@@ -38,16 +38,32 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
         2.) We want to display that random number;
         3.) We want to update the score but ONLY IF the number is NOT 1;
     */
-    //1
+//1
     var dice = Math.floor(Math.random() * 6) + 1;
-    //2
+//2
     var diceDOM = document.querySelector(".dice");
     diceDOM.style.display = "unset";
     diceDOM.src="dice-" + dice + ".png";
-    //3
-    var newNum = document.querySelector(".player-current-score").textContent + dice;
-    console.log(newNum);
+//3
+    if(dice > 1) {
+        //Add to score
+        roundScore += dice;
+        document.getElementById("current-" + activePlayer).textContent = roundScore;
+    } else {
+        //Next player
+        document.getElementById("current-" + activePlayer).textContent = 0;
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScore = 0;
+
+        document.querySelector(".player-0-panel").classList.toggle("active");
+        document.querySelector(".player-1-panel").classList.toggle("active");
+
+        diceDOM.style.display = "none";
+        //document.querySelector(".player-0-panel").classList.add('active');
+        //document.querySelector(".player-1-panel").classList.remove('active');
+    }
 });
+
 
 
 
