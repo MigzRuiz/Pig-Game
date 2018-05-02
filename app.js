@@ -115,32 +115,66 @@ Change the game to follow these rules:
 
 //CODING CHALLENGE 1
     //VARIABLES
-var scores, roundScore, activePlayer, gamePlaying;
-var diceCheck;
+var scores, roundScore, activePlayer, gamePlaying, diceCheck;
 
 init();
 
 document.querySelector(".btn-roll").addEventListener("click", function (){
-    //Display the dice (1-6 randomly)
-    var diceNum = Math.floor(Math.random() * 6) + 1;
-    document.querySelector(".dice").style.display = "unset";
-    document.querySelector(".dice").src = "dice-" + diceNum + ".png";
-    console.log("Dice Number:" + diceNum + " and DiceCheck:" + diceCheck);
+    //Check game state
+    if (gamePlaying) {
+        //Display the dice (1-6 randomly)
+        var diceNum = Math.floor(Math.random() * 6) + 1;
+        document.querySelector(".dice").style.display = "unset";
+        document.querySelector(".dice").src = "dice-" + diceNum + ".png";
+        //console.log("Dice Number:" + diceNum + " and DiceCheck:" + diceCheck);
 
-    if (diceNum == 6 && diceCheck == 6) {
-        scores[activePlayer] = 0;
-        document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
-        nextPlayer();
-    } else if (diceNum != 1){
-        //Add that number to the current score of the activePlayer
-        roundScore += diceNum;
-        document.getElementById("current-" + activePlayer).textContent = roundScore;
-    } else {
-        nextPlayer();
+        if (diceNum == 6 && diceCheck == 6) {
+            scores[activePlayer] = 0;
+            document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
+            nextPlayer();
+        } else if (diceNum != 1){
+            //Add that number to the current score of the activePlayer
+            roundScore += diceNum;
+            document.getElementById("current-" + activePlayer).textContent = roundScore;
+        } else {
+            nextPlayer();
+        }
+        
+        diceCheck = diceNum;
     }
-    
-    diceCheck = diceNum;
 });
+
+document.querySelector(".btn-hold").addEventListener("click", function (){
+    //Check game state
+    if (gamePlaying) {
+        //Current score would be added to the Total score of the active player
+        score[activePlayer] += roundScore;
+        document.getElementById("score-" + activePlayer).textContent = score[activePlayer];
+
+        //Check if activePlayer won
+        if(score[activePlayer] >= 20) {
+            //Change name to winner
+            document.getElementById("name-" + activePlayer).textContent = "Winner!";
+
+            //Hide dice
+            document.querySelector(".dice").style.display = "none";
+
+            //Change winner format
+            document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
+            document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
+
+            //Change game state to say it's over
+            gamePlaying = false;
+
+        } else {
+            //Next player
+            nextPlayer();
+        }
+    }
+});
+
+
+
 
 function init() {
     //Assigning base values for the variables
