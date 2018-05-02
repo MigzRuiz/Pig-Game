@@ -115,8 +115,8 @@ Change the game to follow these rules:
 
 //CODING CHALLENGE 1
     //VARIABLES
-var score, roundScore, activePlayer, gamePlaying;
-var diceCheck = 0;
+var scores, roundScore, activePlayer, gamePlaying;
+var diceCheck;
 
 init();
 
@@ -127,20 +127,19 @@ document.querySelector(".btn-roll").addEventListener("click", function (){
     document.querySelector(".dice").src = "dice-" + diceNum + ".png";
     console.log("Dice Number:" + diceNum + " and DiceCheck:" + diceCheck);
 
-    if (diceNum > 1){
+    if (diceNum == 6 && diceCheck == 6) {
+        scores[activePlayer] = 0;
+        document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
+        nextPlayer();
+    } else if (diceNum != 1){
         //Add that number to the current score of the activePlayer
         roundScore += diceNum;
         document.getElementById("current-" + activePlayer).textContent = roundScore;
     } else {
         nextPlayer();
     }
-
-    //if player rolls two 6 in a row
-    if(diceNum == diceCheck) {
-        diceNum == 6 ? nextPlayer() : diceCheck = diceNum;
-    } else {
-        diceCheck = diceNum;
-    }
+    
+    diceCheck = diceNum;
 });
 
 function init() {
