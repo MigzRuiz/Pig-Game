@@ -21,7 +21,9 @@ Change the game to follow these rules:
 
 //CODING CHALLENGE 1
     //VARIABLES
-var scores, roundScore, activePlayer, gamePlaying, diceCheck;
+var scores, roundScore, activePlayer, gamePlaying, diceCheck, winningScore;
+
+winningScore = 100;
 
 init();
 
@@ -58,7 +60,7 @@ document.querySelector(".btn-hold").addEventListener("click", function (){
         document.getElementById("score-" + activePlayer).textContent = score[activePlayer];
 
         //Check if activePlayer won
-        if(score[activePlayer] >= 100) {
+        if(score[activePlayer] >= winningScore) {
             //Change name to winner
             document.getElementById("name-" + activePlayer).textContent = "Winner!";
 
@@ -80,6 +82,12 @@ document.querySelector(".btn-hold").addEventListener("click", function (){
 });
 
 document.querySelector(".btn-new").addEventListener("click", init);
+
+
+//Getting Input
+document.querySelector(".btn-form").addEventListener("click", function (){
+    winningScore = document.getElementById("winning-score").value;
+});
 
 function init() {
     //Assigning base values for the variables
