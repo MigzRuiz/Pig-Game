@@ -55,6 +55,8 @@ document.querySelector(".btn-roll").addEventListener("click", function (){
 document.querySelector(".btn-hold").addEventListener("click", function (){
     //Check game state
     if (gamePlaying) {
+        winningScore = document.getElementById("winning-score").value;
+        
         //Current score would be added to the Total score of the active player
         score[activePlayer] += roundScore;
         document.getElementById("score-" + activePlayer).textContent = score[activePlayer];
@@ -82,7 +84,6 @@ document.querySelector(".btn-hold").addEventListener("click", function (){
 });
 
 document.querySelector(".btn-new").addEventListener("click", init);
-
 
 //Getting Input
 document.querySelector(".btn-form").addEventListener("click", function (){

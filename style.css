@@ -177,5 +177,13 @@ i {
     text-align: center;
 }
 
+.form-input {
+    margin-top: 5px;
+    text-align: center;
+    color: #888;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px #555 solid;
+}
 .form-group { top: 520px;}
-.btn-form { top: 40px;}
+.btn-form { top: 45px;}
